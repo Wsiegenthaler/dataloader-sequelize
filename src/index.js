@@ -351,7 +351,7 @@ export default function (target, options = {}) {
 
   if (target.associationType) {
     shimAssociation(target);
-  } else if (target.toString().includes('SequelizeModel')) {
+  } else if (!!target.toString().match(/class(\s+[\S\d]+)?\s+extends\s+(Sequelize\.)?Model[^\S\d]+/)) {
     shimModel(target);
     values(target.associations).forEach(shimAssociation);
   } else {
