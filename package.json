@@ -8,14 +8,15 @@
   },
   "license": "MIT",
   "scripts": {
-    "prepublish": "npm run build",
+    "prepublish": "npm run snyk-protect && npm run build",
     "lint": "eslint src",
     "build": "babel src -d lib",
     "test": "npm run lint && npm run test:unit && npm run test:integration",
     "test:unit": "NODE_ENV=test mocha $npm_package_options_mocha 'test/unit/**.test.js'",
     "test:integration": "docker-compose run --rm -e NODE_ENV=test dev npm run test:integration:raw",
     "test:integration:raw": "mocha $npm_package_options_mocha 'test/integration/**.test.js'",
-    "cover": "babel-node node_modules/.bin/isparta cover --excludes **/resources/** _mocha -- $npm_package_options_mocha 'test/**/*.test.js'"
+    "cover": "babel-node node_modules/.bin/isparta cover --excludes **/resources/** _mocha -- $npm_package_options_mocha 'test/**/*.test.js'",
+    "snyk-protect": "snyk protect"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
@@ -43,6 +44,8 @@
     "dataloader": "^1.2.0",
     "lodash": "^4.15.0",
     "lru-cache": "^4.0.1",
-    "shimmer": "^1.1.0"
-  }
+    "shimmer": "^1.1.0",
+    "snyk": "^1.316.2"
+  },
+  "snyk": true
 }
